@@ -1,21 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useReducer } from 'react';
+import { useFonts } from "expo-font";
+import MainNavigation from './src/navigation/MainNavigation';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import ThemeContext from './src/context/ThemeContext';
+import ThemeReducer from "./src/reducers/ThemeReducer";
 
 export default function App() {
+
+  const [theme, dispatchTheme] = useReducer(ThemeReducer, {theme: 'dark'});
+
+  // let [fonts] = useFonts({
+
+  // })
+
+  // if(!fonts){
+  //   return "Couldnt load fonts, using default ones";
+  // }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <ThemeContext.Provider value={{ theme, dispatchTheme }}>
+        <MainNavigation />
+      </ThemeContext.Provider>
+    </SafeAreaProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
