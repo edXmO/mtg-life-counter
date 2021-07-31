@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import ThemeContext from "../context/ThemeContext";
 import {Appearance,  useColorScheme } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import DrawerStackNavigator from "./DrawerNavigator";
+import DrawerStackNavigator from "./DrawerStackNavigator";
 
 const MainStackNavigator = ({}) => {	
   
@@ -18,7 +18,6 @@ const MainStackNavigator = ({}) => {
     if(colorScheme){
       dispatchTheme({type: 'UPDATE_THEME', payload: { theme: colorScheme}});
     } 
-
   }, []);
 
   // useEffect(() => {

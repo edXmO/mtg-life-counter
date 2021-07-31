@@ -12,5 +12,4 @@ const DrawerStackNavigator = ({}) => {
   )
 }
 
-
 export default DrawerStackNavigator;
