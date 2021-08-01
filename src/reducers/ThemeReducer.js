@@ -1,5 +1,3 @@
-import React from "react";
-
 const ThemeReducer = (state, action) => {
 
   switch(action.type){

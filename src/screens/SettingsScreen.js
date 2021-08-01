@@ -3,14 +3,14 @@ import { View } from "react-native"
 import Label from "../librarycomponents/Label";
 import Button from "../librarycomponents/Button";
 
-const Settings = ({ navigation }) => {	 
+const SettingsScreen = ({ navigation }) => {	 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Label>Settings Screen</Label>
-      <Button label='Home' onPress={() => navigation.navigate("Home")} />
+      <Button label='Home' onPress={() => navigation.navigate("HomeStack")} />
     </View>
   )
 }
 
 
-export default Settings;
+export default SettingsScreen;
