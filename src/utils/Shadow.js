@@ -5,6 +5,6 @@ export default {
 		height: 13,
 	},
 	shadowOpacity: 0.1,
-	shadowRadius: 10,
-	elevation: 7
+	shadowRadius: 8,
+	elevation: 5
 }

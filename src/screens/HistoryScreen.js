@@ -1,5 +1,6 @@
 import React from "react"
 import { ScrollView, View } from "react-native";
+import HistoryGrid from "../components/HistoryGrid";
 import Checkbox from "../librarycomponents/Checkbox";
 import Label from "../librarycomponents/Label";
 import ScrollViewContainer from "../utils/ScrollViewContainer";
@@ -8,10 +9,12 @@ import Shadow from "../utils/Shadow";
 const HistoryScreen = ({ route, navigation }) => {
   return (
     (
-      <ScrollView 
+      <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{...ScrollViewContainer}}>
+          <HistoryGrid />
         {/* <Checkbox label={"Tema"} onPress={(value) => console.log(value)} iconColor="royalblue" fillColor="royalblue"/> */}
-        <View style={[{
+        {/* <View style={[{
           backgroundColor: "white",
           width: "90%",
           height: 300,
@@ -37,7 +40,7 @@ const HistoryScreen = ({ route, navigation }) => {
           marginVertical: 10,
         }, {...Shadow}]}>
           <Label>Ajustes</Label>
-        </View>
+        </View> */}
       </ScrollView>
     )
   )
