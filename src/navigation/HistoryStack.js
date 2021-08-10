@@ -1,29 +1,27 @@
-import React, { useContext, useEffect } from "react";
-import { createStackNavigator} from "@react-navigation/stack";
-import HomeScreen from "../screens/HomeScreen";
+import React, { useContext } from "react"
+import {createStackNavigator} from "@react-navigation/stack";
 import ThemeContext from "../context/ThemeContext";
 import CustomTitle from "../components/CustomTitle";
-import GameScreen from "../screens/GameScreen";
+import HistoryScreen from "../screens/HistoryScreen";
 
 const Stack = createStackNavigator();
 
-const HomeStack = ({ route, navigation }) => {	 
+const HistoryStack = ({ route, navigation }) => {	 
 
   const { theme } = useContext(ThemeContext);
 
   return (
-    <Stack.Navigator
+    <Stack.Navigator 
       initialRouteName="Home"
       screenOptions={{
         headerTitle: () => <CustomTitle title={route.name} onPress={() => navigation.navigate("HomeStack")} />,
         // headerTintColor: `${theme === 'dark' ? '#000' : '#fff'}`,
         headerTitleAlign: 'center'
-        }}
-      >
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="GameScreen" component={GameScreen} />
+      }}>
+      <Stack.Screen name="HistoryScreen" component={HistoryScreen}/>
     </Stack.Navigator>
   )
 }
 
-export default HomeStack;
+
+export default HistoryStack;

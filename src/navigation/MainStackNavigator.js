@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import ThemeContext from "../context/ThemeContext";
 import {Appearance,  useColorScheme } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import DrawerStackNavigator from "./DrawerStackNavigator";
+import TabsStackNavigator from "./TabsStackNavigator";
 
 const MainStackNavigator = ({}) => {	
   
@@ -28,7 +28,7 @@ const MainStackNavigator = ({}) => {
 
   return (
       <NavigationContainer>
-        <DrawerStackNavigator />
+        <TabsStackNavigator />
       </NavigationContainer>
     )
 }

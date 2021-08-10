@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeStack from "./HomeStack";
 import SettingsStack from "./SettingsStack";
 import { AntDesign } from "@expo/vector-icons";
+import HistoryStack from "./HistoryStack";
 
 const Tabs = createBottomTabNavigator();
 
@@ -15,6 +16,8 @@ const TabsStackNavigator = ({}) => {
 
           if (route.name === 'HomeStack') {
             iconName = 'home'
+          } else if (route.name === 'HistoryStack') {
+            iconName = 'exception1'
           } else if (route.name === 'SettingsStack') {
             iconName = 'setting'
           }
@@ -29,6 +32,7 @@ const TabsStackNavigator = ({}) => {
       }}
     >
       <Tabs.Screen name="HomeStack" component={HomeStack} />
+      <Tabs.Screen name="HistoryStack" component={HistoryStack} /> 
       <Tabs.Screen name="SettingsStack" component={SettingsStack} />
     </Tabs.Navigator>
   )

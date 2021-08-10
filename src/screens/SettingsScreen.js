@@ -1,16 +1,17 @@
 import React from "react"
-import { View } from "react-native"
+import { ScrollView, View } from "react-native"
 import Label from "../librarycomponents/Label";
 import Button from "../librarycomponents/Button";
+import ScrollViewContainer from "../utils/ScrollViewContainer";
 
 const SettingsScreen = ({ navigation }) => {	 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <ScrollView 
+      contentContainerStyle={{...ScrollViewContainer}}>
       <Label>Settings Screen</Label>
       <Button label='Home' onPress={() => navigation.navigate("HomeStack")} />
-    </View>
+    </ScrollView>
   )
 }
-
 
 export default SettingsScreen;
