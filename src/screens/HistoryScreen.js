@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { ScrollView, View } from "react-native";
 import HistoryGrid from "../components/HistoryGrid";
 import Checkbox from "../librarycomponents/Checkbox";
@@ -7,12 +7,19 @@ import ScrollViewContainer from "../utils/ScrollViewContainer";
 import Shadow from "../utils/Shadow";
 
 const HistoryScreen = ({ route, navigation }) => {
+
+  const [isDragging, setIsDragging] = useState(false);
+
   return (
     (
       <ScrollView
+        scrollEnabled={!isDragging}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{...ScrollViewContainer}}>
-          <HistoryGrid />
+          <HistoryGrid 
+            isDragging={isDragging}
+            setIsDragging={setIsDragging}
+            />
         {/* <Checkbox label={"Tema"} onPress={(value) => console.log(value)} iconColor="royalblue" fillColor="royalblue"/> */}
         {/* <View style={[{
           backgroundColor: "white",

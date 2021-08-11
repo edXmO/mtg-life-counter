@@ -27,12 +27,13 @@ const mockData = [
 
 const NUM_COLUMNS = 3;
 
-const HistoryGrid = ({ data = mockData, theme }) => {
+const HistoryGrid = ({ data = mockData, theme, isDragging, setIsDragging }) => {
+
   return (
     <FlatList
       contentContainerStyle={{...ScrollViewContainer}}
       data={data}
-      renderItem={({item, index}) => <HistoryItem key={`${index}-${item?.key}`} label={item?.key} index={index} />}
+      renderItem={({item, index}) => <HistoryItem key={`${index}-${item?.key}`} label={item?.key} index={index} isDragging={isDragging} setIsDragging={setIsDragging} />}
       numColumns={NUM_COLUMNS}
     />
 )}
