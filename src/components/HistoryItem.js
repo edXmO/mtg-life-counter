@@ -1,43 +1,39 @@
-import React, { useRef } from "react"
-import { PanResponder, Animated } from "react-native"
-import Label from "../librarycomponents/Label"
-import Shadow from "../utils/Shadow"
+import React, { useEffect } from "react"
+import Animated, { useAnimatedStyle, useSharedValue, withTiming, withSpring } from "react-native-reanimated";
+import Label from "../librarycomponents/Label";
+import Shadow from "../utils/Shadow";
 
-const HistoryItem = ({label, theme}) => {
+const SQUARE_SZ = 100;
 
-  const pan = useRef(new Animated.ValueXY()).current;
+const HistoryItem = ({label, theme, index}) => {
 
-  const panResponder = useRef(PanResponder.create({
-    onMoveShouldSetPanResponder: () => true,
-    onPanResponderGrant: () => {
-      console.log("dragging")
-      pan.setOffset({x: pan.x._value, y: pan.y._value})
-    },
-    onPanResponderMove: Animated.event(
-      [
-        null,
-        {dx: pan.x, dy: pan.y}
-      ], 
-      { useNativeDriver: false }
-    ),
-    // onPanResponderRelease: () => {
-    //   pan.flattenOffset();
-    // }
-  }))
+  const progress = useSharedValue(0);
+  const scale = useSharedValue(0);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: progress.value,
+      transform: [{ scale: scale.value }, { rotate: `${progress.value * 2 * Math.PI}rad`}],
+    }
+  }, []);
+
+  useEffect(() => {
+    progress.value = withSpring(1, { duration: 1200 });
+    scale.value = withSpring(1, { duration: 2500});
+  }, []);
 
   return (
     <Animated.View
-      {...panResponder.panHandlers}
-      style={[{
-      width: 100,
-      height: 100,
+    style={[{
+      width: SQUARE_SZ,
+      height: SQUARE_SZ,
       borderRadius: 7,
       backgroundColor: theme ?? "white",
       alignItems: "center",
       justifyContent: "center",
       margin: 10,
-      transform: [{ translateX: pan.x }, { translateY: pan.y }]
-    }, {...Shadow}]}>
+    }, Shadow, animatedStyle]}
+    >
       <Label>{label}</Label>
     </Animated.View>
   )

@@ -1,5 +1,6 @@
 import React from "react"
-import { FlatList, StyleSheet, Dimensions } from "react-native";
+import { FlatList, Dimensions } from "react-native";
+import ScrollViewContainer from "../utils/ScrollViewContainer";
 import HistoryItem from "./HistoryItem";
 
 const mockData = [
@@ -26,22 +27,14 @@ const mockData = [
 
 const NUM_COLUMNS = 3;
 
-const HistoryGrid = ({data = mockData}) => {
+const HistoryGrid = ({ data = mockData, theme }) => {
   return (
-    <FlatList 
+    <FlatList
+      contentContainerStyle={{...ScrollViewContainer}}
       data={data}
-      style={styles.flatlistContainer}
-      renderItem={({item, index}) => <HistoryItem key={`${index}-${item?.key}`} label={item?.key} />}
+      renderItem={({item, index}) => <HistoryItem key={`${index}-${item?.key}`} label={item?.key} index={index} />}
       numColumns={NUM_COLUMNS}
     />
-  )
-	}
+)}
 
 export default HistoryGrid;
-
-const styles = StyleSheet.create({
-  flatlistContainer: {
-    flex: 1,
-    paddingVertical: 10
-  }
-})  
