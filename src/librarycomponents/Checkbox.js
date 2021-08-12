@@ -9,7 +9,6 @@ const Checkbox = ({ size = 25, fillColor="white", unfillColor="#FFFFFF", label, 
       unfillColor={`${unfillColor}`}
       text={`${label}`}
       iconStyle={{ borderColor: `${iconColor}` }}
-      // textStyle={{ fontFamily: "JosefinSans-Regular" }}
       onPress={onPress}
     />)
 	}

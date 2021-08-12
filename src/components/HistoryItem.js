@@ -1,5 +1,5 @@
 import React from "react"
-import Animated, { useAnimatedStyle, useSharedValue, withTiming, withSpring, useAnimatedGestureHandler } from "react-native-reanimated";
+import Animated, { useAnimatedStyle, useSharedValue, withSpring, useAnimatedGestureHandler } from "react-native-reanimated";
 import Label from "../librarycomponents/Label";
 import Shadow from "../utils/Shadow";
 import { PanGestureHandler } from "react-native-gesture-handler";
@@ -41,8 +41,6 @@ const HistoryItem = ({label, theme, index, isDragging, setIsDragging}) => {
 
   return (
     <PanGestureHandler 
-      onBegan={() => setIsDragging(true)}
-      onEnded={() => setIsDragging(false)}
       onGestureEvent={panGestureEvent}>
       <Animated.View
       style={[{
