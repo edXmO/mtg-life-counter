@@ -4,6 +4,7 @@ import Label from "../librarycomponents/Label";
 import Button from "../librarycomponents/Button";
 import ScrollViewContainer from "../utils/ScrollViewContainer";
 import Accordion from "../librarycomponents/Accordion";
+import Shadow from "../utils/Shadow";
 
 const SettingsScreen = ({ navigation }) => {	 
   return (
@@ -12,13 +13,40 @@ const SettingsScreen = ({ navigation }) => {
         <Accordion 
           label={"Toggle!"} >
           <View 
-          style ={{
-            height: 300,
+          style ={[{
+            // height: 300,
             width: "100%",
-            backgroundColor: "blue"
-          }}>
-            <Label>Hey hey!</Label>
+            backgroundColor: "white",
+            borderRadius: 7,
+          }]}>
           </View>
+            <View style={{flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center"}}>
+              <Label style={{width: "33%", padding: 10}}>Item 1</Label>
+              <Label style={{width: "33%", padding: 10}}>Item 2</Label>
+              <Label style={{width: "33%", padding: 10}}>Item 3</Label>
+              <Label style={{width: "33%", padding: 10}}>Item 4</Label>
+              <Label style={{width: "33%", padding: 10}}>Item 5</Label>
+              <Label style={{width: "33%", padding: 10}}>Item 6</Label>
+            </View>
+        </Accordion>
+        <Accordion 
+          label={"Toggle!"} >
+          <View 
+          style ={[{
+            // height: 300,
+            width: "100%",
+            backgroundColor: "white",
+            borderRadius: 7,
+          }]}>
+          </View>
+            <View style={{flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center"}}>
+              <Label style={{width: "33%", padding: 10}}>Item 1</Label>
+              <Label style={{width: "33%", padding: 10}}>Item 2</Label>
+              <Label style={{width: "33%", padding: 10}}>Item 3</Label>
+              <Label style={{width: "33%", padding: 10}}>Item 4</Label>
+              <Label style={{width: "33%", padding: 10}}>Item 5</Label>
+              <Label style={{width: "33%", padding: 10}}>Item 6</Label>
+            </View>
         </Accordion>
     </ScrollView>
   )
