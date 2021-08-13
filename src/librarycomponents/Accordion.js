@@ -21,56 +21,68 @@ const Accordion = ({ children, label }) => {
         },
         bodyContainer: {
             width: "100%",
+            alignSelf: "center",
             marginBottom: 5,
             borderRadius: 10,
             backgroundColor: "white",
-
+            overflow: "visible",
+            position: "relative"
         },
         bodyBackground: {
+            position: "absolute",
+            zIndex: -1,
+            top: 15,
+            overflow: "visible",
             width: "90%",
-            marginTop: 10,
             marginBottom: 5
         }
     });
 
     const [ open, setOpen ] = useState(false);
     const progress = useSharedValue(0);
-    const [ bodySectionHeight, setBodySectionHeight ] = useState(0);
-    const [ toggleSectionHeight, setToggleSectionHeight] = useState(0);
+    const heightProgress = useSharedValue(0);
 
     const animatedCaretStyles = useAnimatedStyle(() => {
         return {
             transform: [{ rotate: `${interpolate(progress.value, [0, 1], [180, 0])}deg`}],
-            color: interpolateColor(progress.value, [0, 1], ['royalblue', '#000000'])
+            color: interpolateColor(progress.value, [0, 1], ['royalblue', '#000000']),
         }
     }, []);
 
     const animatedAccordionStyles = useAnimatedStyle(() => {
         return {
-            opacity: interpolate(progress.value, [0, 1], [1, 0]),
+            height: interpolate(heightProgress.value,
+                [0, 1],
+                [60, 280],
+            ),
         }
     }, []);
-
+    
     const animatedBodyContainerStyles = useAnimatedStyle(() => {
         return {
-            transform: [{ translateY: interpolate(progress.value, [0, 1], [0, bodySectionHeight])}]
+            minHeight: 65,
+            opacity: interpolate(progress.value, [0, 1], [0, 1]),
+            height: interpolate(progress.value,
+                [0, 1],
+                [0, 200],
+                ),
+            transform: [{ translateY: interpolate(progress.value, [0, 1], [0, 100])}]
         }
     }, [])
 
     return (
         <>  
-        {/* <Animated.View 
-            onLayout={({nativeEvent}) => { 
-                setToggleSectionHeight(nativeEvent.layout.height)
-            }}
-            style={[animatedAccordionStyles, { height: toggleSectionHeight * 2 }]}> */}
+        <Animated.View 
+            style={[animatedAccordionStyles]}>
             <TouchableOpacity
-                onLayout={({nativeEvent}) => { 
-                    setToggleSectionHeight(nativeEvent.layout.height)
-                }}            
                 onPress={async () => {
                     await new Promise(resolve => {
                         return resolve(setOpen(!open))
+                    })
+                    .then(() => {
+                        if(open){
+                            heightProgress.value = withSpring(1)
+                        }
                     })
                     .then(() => {
                         if(open){
@@ -97,14 +109,13 @@ const Accordion = ({ children, label }) => {
                         />
                 </View>
             </TouchableOpacity>
-            {/* </Animated.View> */}
+            </Animated.View>
             <Animated.View
                 style={[styles.bodyBackground, animatedAccordionStyles]}>
                 <Animated.View
-                    style={[styles.bodyContainer, animatedBodyContainerStyles]}
-                    onLayout={({ nativeEvent }) => {
-                        setBodySectionHeight(-nativeEvent.layout.height);
-                    }}>
+                    // onLayout={({nativeEvent}) => setToggleSectionHeight(nativeEvent.layout.height)}
+                    style={[styles.bodyContainer, animatedBodyContainerStyles, Shadow]}
+                    >
                     {children}
                 </Animated.View>
             </Animated.View>

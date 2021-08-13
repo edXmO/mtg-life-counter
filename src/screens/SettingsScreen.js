@@ -14,13 +14,13 @@ const SettingsScreen = ({ navigation }) => {
           label={"Toggle!"} >
           <View 
           style ={[{
-            // height: 300,
             width: "100%",
             backgroundColor: "white",
             borderRadius: 7,
           }]}>
           </View>
-            <View style={{flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center"}}>
+            <View style={{
+              flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center"}}>
               <Label style={{width: "33%", padding: 10}}>Item 1</Label>
               <Label style={{width: "33%", padding: 10}}>Item 2</Label>
               <Label style={{width: "33%", padding: 10}}>Item 3</Label>
@@ -29,8 +29,8 @@ const SettingsScreen = ({ navigation }) => {
               <Label style={{width: "33%", padding: 10}}>Item 6</Label>
             </View>
         </Accordion>
-        <Accordion 
-          label={"Toggle!"} >
+        {/* <Accordion 
+          label={"Hey!"} >
           <View 
           style ={[{
             // height: 300,
@@ -47,7 +47,16 @@ const SettingsScreen = ({ navigation }) => {
               <Label style={{width: "33%", padding: 10}}>Item 5</Label>
               <Label style={{width: "33%", padding: 10}}>Item 6</Label>
             </View>
-        </Accordion>
+        </Accordion> */}
+        {/* <View
+          style={[{
+            heigth: 300,
+            width: "90%",
+            backgroundColor: "white",
+            borderRadius: 7,
+          }, Shadow ]}>
+
+        </View> */}
     </ScrollView>
   )
 }
