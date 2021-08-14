@@ -16,7 +16,7 @@ let BOARD_STATE = {
   date: ""
 }
 
-const GameScreen = ({}) => {
+const GameScreen = ({ route }) => {
 
   // Numero de jugadores ira en la pantalla de arriba probablemente;
   const [numPlayers, setNumPlayers] = useState(2);
@@ -30,9 +30,10 @@ const GameScreen = ({}) => {
     setGameBoards(newBoard);
   }
 
-  // useEffect(() => {
-  //   setNumPlayers(2);
-  // }, [])
+
+  useEffect(() => {
+    console.log(route?.params);
+  }, [route?.params])
 
   return (
       <View style={{

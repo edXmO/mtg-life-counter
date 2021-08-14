@@ -14,7 +14,7 @@ const LifeCounterComponent = ({ activeCounter, editCounter, index, data }) => {
         </Label>
       </Button>
       <View style={styles.lifeContainerStyles}>
-        <Label style={styles.lifeLabelStyles}>
+        <Label style={styles.lifeDisplayStyles}>
           {data.counters[activeCounter]}
         </Label>      
       </View>
@@ -37,8 +37,14 @@ const styles = StyleSheet.create({
   lifeContainerStyles: {
     
   },
+  lifeDisplayStyles: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#000"
+  },
   lifeLabelStyles: {
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: "#fff"
   }
 })
