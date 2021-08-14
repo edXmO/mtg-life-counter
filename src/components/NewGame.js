@@ -20,7 +20,7 @@ const NewGame = ({ setNewGame }) => {
 
   return (
     <ModalComponent>
-      <View style={[styles.modalContainerStyles, Shadow, {backgroundColor: "white", height: height / 2, width: width - 20}]}>
+      <View style={[styles.modalContainerStyles, Shadow, { backgroundColor: "white", height: height / 2, width: width - 20}]}>
         <Button
           style={{justifyContent: "flex-end"}}
           onPress={() => setNewGame(false)}>
@@ -30,7 +30,7 @@ const NewGame = ({ setNewGame }) => {
 
         <Button 
           style={{marginTop: "auto", justifyContent: "center"}}
-          onPress={() => navigation.navigate("HomeStack", {screen: "GameScreen"})}>
+          onPress={() => navigation.navigate("HomeStack", {screen: "GameScreen", params: { numPlayers: gameData?.numPlayers }})}>
           <Label style={{color: "white"}}>Nueva Partida</Label>
         </Button>
       </View>

@@ -2,8 +2,8 @@ import React from "react"
 import { Dimensions, StyleSheet, View } from "react-native";
 import { useState } from "react/cjs/react.development";
 import Shadow from "../utils/Shadow";
+import CounterSliderComponent from "./CounterSliderComponent";
 import SwitchCountersComponent from "./SwitchCountersComponent";
-import LifeCounterComponent from "./LifeCounterComponent";
 
 const  { width } = Dimensions.get("screen");
 
@@ -14,7 +14,7 @@ const Board = ({ editCounter, index, data }) => {
   return (
     <View style={[styles.gameBoard, Shadow ]}> 
       <SwitchCountersComponent setActiveCounter={setActiveCounter} counters={data.counters} activeCounter={activeCounter} />
-      <LifeCounterComponent activeCounter={activeCounter} editCounter={editCounter} index={index} data={data} />
+      <CounterSliderComponent activeCounter={activeCounter} editCounter={editCounter} index={index} data={data} />
     </View>
   )
 }

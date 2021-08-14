@@ -6,6 +6,7 @@ import Board from "../components/Board";
 const { height } = Dimensions.get("window");
 
 let BOARD_STATE = {
+  uuid: "",
   playerName: "Edu",
   counters: {
     life: 20,
@@ -16,10 +17,26 @@ let BOARD_STATE = {
   date: ""
 }
 
+const boardState = {
+  counter: {
+    life: 20,
+    poison: 0,
+    energy: 0
+  },
+  timeElapsed: "",
+}
+
+const GAME = {
+  playerName: "Edu",
+  playerBoard: boardState,
+  date: new Date()
+}
+
+
 const GameScreen = ({ route }) => {
 
   // Numero de jugadores ira en la pantalla de arriba probablemente;
-  const [numPlayers, setNumPlayers] = useState(2);
+  const [numPlayers, setNumPlayers] = useState(1);
   const [gameBoards, setGameBoards] = useState(Array.from(Array(numPlayers), () =>  { return BOARD_STATE }));
 
   const editCounter = (index, key, value) => {
@@ -30,10 +47,11 @@ const GameScreen = ({ route }) => {
     setGameBoards(newBoard);
   }
 
-
-  useEffect(() => {
-    console.log(route?.params);
-  }, [route?.params])
+  // useEffect(() => {
+  //   if(route?.params){
+  //     setNumPlayers(route?.params?.numPlayers)
+  //   }
+  // }, [route?.params])
 
   return (
       <View style={{

@@ -2,7 +2,7 @@ import React from "react"
 import { TouchableOpacity, StyleSheet } from "react-native"
 import Label from "../librarycomponents/Label";
 
-const Button = ({ children, onPress, theme, primary = true, style = {} }) => {	 
+const Button = ({ children, onPress, theme, primary = true, style = {}, disabled = false }) => {	 
 
   const styles = StyleSheet.create({
     primary: {
@@ -34,7 +34,7 @@ const Button = ({ children, onPress, theme, primary = true, style = {} }) => {
   })
 
   return (
-    <TouchableOpacity style={primary ? [styles.primary, styles.shadows, style ] : [styles.secondary, styles.shadows, style]} onPress={onPress}>
+    <TouchableOpacity disabled={disabled} style={primary ? [styles.primary, styles.shadows, style ] : [styles.secondary, styles.shadows, style]} onPress={onPress}>
       {children}
     </TouchableOpacity>
   )
