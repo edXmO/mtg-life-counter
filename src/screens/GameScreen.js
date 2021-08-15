@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from "react"
-import { View, Dimensions, StyleSheet } from "react-native";
+import { View, Dimensions, ActivityIndicator } from "react-native";
 import Board from "../components/Board";
 
 const { height } = Dimensions.get("window");
@@ -35,8 +35,7 @@ const GAME = {
 const GameScreen = ({ route }) => {
 
   // Numero de jugadores ira en la pantalla de arriba probablemente;
-  const [numPlayers, setNumPlayers] = useState(1);
-  const [gameBoards, setGameBoards] = useState(Array.from(Array(numPlayers), () =>  { return BOARD_STATE }));
+  const [gameBoards, setGameBoards] = useState(Array.from(Array(route?.params?.numberOfPlayers ?? 2), () =>  { return BOARD_STATE }));
 
   const editCounter = (index, key, value) => {
     let newBoard = [...gameBoards];
@@ -46,13 +45,11 @@ const GameScreen = ({ route }) => {
     setGameBoards(newBoard);
   }
 
-  useEffect(() => {
-    if(route?.params){
-      setNumPlayers(route?.params?.numPlayers)
-    }
-  }, [route?.params])
 
   return (
+      !gameBoards?.length ? 
+      <ActivityIndicator />
+      :
       <View style={{
           height: height,
           width: "100%",

@@ -6,11 +6,11 @@ import Button from "../librarycomponents/Button";
 import Label from "../librarycomponents/Label";
 import ModalComponent from "../librarycomponents/ModalComponent";
 import Shadow from "../utils/Shadow";
-import Center from "../utils/Center";
 
 const { width, height } = Dimensions.get("screen");
 
 const ITEM_WIDTH = 45;
+const DEFAULT_PLAYERS = 2;
 
 const PLAYER_DATA = {
   name: ""
@@ -21,7 +21,7 @@ const NewGame = ({ setNewGame }) => {
   const navigation = useNavigation();
 
   const [gameData, setGameData ]= useState({
-    numPlayers: 2,
+    numPlayers: DEFAULT_PLAYERS,
     playerData: []
   });
   
@@ -30,16 +30,19 @@ const NewGame = ({ setNewGame }) => {
 
     newData[key] = value;
 
+    console.log(newData);
+
     setGameData({ ...newData });
   }
 
   const editPlayerData = (index, key, value) => {
-    let newPlayerData = [...gameData?.playerData];
+    let newPlayerData = [...gameData.playerData];
 
-    playerData[index][key] = value;
+    newPlayerData[index][key] = value;
 
     setGameData({...gameData, playerData: newPlayerData});
   }
+
 
   const renderItem = ({ item }) => {
 
@@ -48,15 +51,31 @@ const NewGame = ({ setNewGame }) => {
     return (
       <TouchableOpacity
         style={{width: ITEM_WIDTH, height: ITEM_WIDTH, borderRadius: ITEM_WIDTH / 2, backgroundColor: isSelected ? "black" : "transparent", alignItems: "center", justifyContent: "center"}}
-        onPress={() => editForm('numPlayers', parseInt(item?.value))}>
+        onPress={() => {
+          let playerData = Array.from(Array(item?.value), () => PLAYER_DATA);
+          // FIX ORDER OF MODIFICATION OF THE GAMEDATA STATE
+          // FIRST numPlayers, then the array of playerData
+          editForm('playerData', playerData);
+          editForm('numPlayers', parseInt(item?.value));
+        }}>
         <Label style={{color: isSelected ? "white" : "black", fontWeight: isSelected ? "bold" : undefined, fontSize: isSelected ? 18 : 10}}>{item?.value}</Label>
       </TouchableOpacity>
     )
   }
 
+  const onNewGameSubmit = () => {
+    const params = {
+      numberOfPlayers: gameData?.numPlayers,
+      ...Array.from(Array(gameData?.numPlayers), (v, i) => gameData?.playerData[i].name )
+    }
+
+    console.log("params: ", params)
+    // navigation.navigate("HomeStack", { screen: "GameScreen", params: { numberOfPlayers: gameData?.numPlayers, playerOneGame: gameData?.player }})
+  }
+
   return (
     <ModalComponent>
-      <View style={[styles.modalContainerStyles, Shadow, { backgroundColor: "white", height: height / 1.5, width: width - 20}]}>
+      <View style={[styles.modalContainerStyles, Shadow, { backgroundColor: "white", height: height / 1.5, width: width - 20 }]}>
         <Button
           style={{justifyContent: "flex-end"}}
           onPress={() => setNewGame(false)}>
@@ -96,8 +115,7 @@ const NewGame = ({ setNewGame }) => {
                   </Label>
                   <TextInput
                     style={[styles.inputTextStyles, Shadow]}
-                    onChangeText={(val) => {
-                      
+                    onChangeText={(val) => {                    
                       editPlayerData(i, 'name', val)
                     }}
                     placeholder="Escribe tu nombre"
@@ -111,7 +129,7 @@ const NewGame = ({ setNewGame }) => {
           : null}
         <Button 
           style={{marginTop: "auto", justifyContent: "center"}}
-          onPress={() => navigation.navigate("HomeStack", {screen: "GameScreen", params: { numPlayers: gameData?.numPlayers }})}>
+          onPress={() => onNewGameSubmit()}>
           <Label style={{color: "white"}}>Nueva Partida</Label>
         </Button>
       </View>
