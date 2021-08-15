@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { createStackNavigator} from "@react-navigation/stack";
 import HomeScreen from "../screens/HomeScreen";
 import ThemeContext from "../context/ThemeContext";

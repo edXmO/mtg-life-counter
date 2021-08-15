@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react"
-import { Dimensions, StyleSheet, View, TextInput, ScrollView } from "react-native";
+import { Dimensions, StyleSheet, View, TextInput, ScrollView, FlatList, TouchableOpacity } from "react-native";
 import Button from "../librarycomponents/Button";
 import Label from "../librarycomponents/Label";
 import ModalComponent from "../librarycomponents/ModalComponent";
@@ -9,6 +9,8 @@ import Shadow from "../utils/Shadow";
 import Center from "../utils/Center";
 
 const { width, height } = Dimensions.get("screen");
+
+const ITEM_WIDTH = 45;
 
 const PLAYER_DATA = {
   name: ""
@@ -19,15 +21,9 @@ const NewGame = ({ setNewGame }) => {
   const navigation = useNavigation();
 
   const [gameData, setGameData ]= useState({
-    numPlayers: 0,
+    numPlayers: 2,
     playerData: []
   });
-
-
-  useEffect(() => {
-    console.log(gameData)
-  }, [gameData]);
-
   
   const editForm = (key, value) => {
     let newData = { ...gameData };
@@ -45,9 +41,22 @@ const NewGame = ({ setNewGame }) => {
     setGameData({...gameData, playerData: newPlayerData});
   }
 
+  const renderItem = ({ item }) => {
+
+    const isSelected = parseInt(item?.value) === parseInt(gameData?.numPlayers);
+
+    return (
+      <TouchableOpacity
+        style={{width: ITEM_WIDTH, height: ITEM_WIDTH, borderRadius: ITEM_WIDTH / 2, backgroundColor: isSelected ? "black" : "transparent", alignItems: "center", justifyContent: "center"}}
+        onPress={() => editForm('numPlayers', parseInt(item?.value))}>
+        <Label style={{color: isSelected ? "white" : "black", fontWeight: isSelected ? "bold" : undefined, fontSize: isSelected ? 18 : 10}}>{item?.value}</Label>
+      </TouchableOpacity>
+    )
+  }
+
   return (
     <ModalComponent>
-      <View style={[styles.modalContainerStyles, Shadow, { backgroundColor: "white", height: height / 2, width: width - 20}]}>
+      <View style={[styles.modalContainerStyles, Shadow, { backgroundColor: "white", height: height / 1.5, width: width - 20}]}>
         <Button
           style={{justifyContent: "flex-end"}}
           onPress={() => setNewGame(false)}>
@@ -57,48 +66,49 @@ const NewGame = ({ setNewGame }) => {
           <View style={{
             alignItems: "center",
             justifyContent: "center",
-            paddingVertical: 15
+            paddingVertical: 15,
+            paddingHorizontal: 15
             }}>
-            <Label>Selecciona el numero de jugadores</Label>
-            {/* <CounterSliderComponent 
-              activeCounter={}
-              editCounter={}
-              index={}
-              data={}
-            /> */}
-            <TextInput 
-              defaultValue={`${1}`}
-              onChangeText={(val) => {
-                editForm('numPlayers', val);
-                editForm('playerData', Array.from(Array(parseInt(val) || 1), () => PLAYER_DATA));
-              }}
-              placeholder="2"
-              editable={true}
-              allowFontScaling={false}
-              />
+            <Label style={styles.inputLabelStyles}>Selecciona el numero de jugadores</Label>
+            <FlatList 
+              horizontal={true}
+              data={Array.from(Array(6), (_, i) => {return { value: i + 1, index: 1 }}).slice(1)}
+              renderItem={renderItem}
+              snapToAlignment={"center"}
+              snapToInterval={ITEM_WIDTH}
+              decelerationRate="fast"
+              keyExtractor={({value, index}) => `${value}-${index}`}
+            />
           </View>
-        {parseInt(gameData?.numPlayers) !== 0 ? 
-          <Center style={{ paddingHorizontal: 15 }}>
-            { Array.from(Array(parseInt(gameData?.numPlayers))).map((item, i) => {
-              return (
-                <>
-                <Label
-                style={styles.inputLabelStyles}
-                  >
-                    {`Introduce el nombre del jugador ${i + 1}`}
-                </Label>
-                <TextInput
-                  style={[styles.inputTextStyles, Shadow]}
-                  onChangeText={(val) => editPlayerData(i, 'name', val)}
-                  placeholder="Escribe tu nombre"
-                  editable={true}
-                  allowFontScaling={false}
-                  />
-                </>
-              ) 
-            }) }
-          </Center> 
-        : null}
+          {gameData?.numPlayers ? 
+              <ScrollView 
+              contentContainerStyle={{ width: "100%", paddingHorizontal: 15, paddingVertical: 10 }}
+              showsVerticalScrollIndicator={false}>
+              { Array.from(Array(parseInt(gameData?.numPlayers))).map((item, i) => {
+                return (
+                  <View 
+                  style={{width: "100%", alignItems: "center"}}
+                  key={`${Math.random()}-${i}`}>
+                  <Label
+                  style={styles.inputLabelStyles}
+                    >
+                      {`Introduce el nombre del jugador ${i + 1}`}
+                  </Label>
+                  <TextInput
+                    style={[styles.inputTextStyles, Shadow]}
+                    onChangeText={(val) => {
+                      
+                      editPlayerData(i, 'name', val)
+                    }}
+                    placeholder="Escribe tu nombre"
+                    editable={true}
+                    allowFontScaling={false}
+                    />
+                  </View>
+                ) 
+              }) }
+            </ScrollView>
+          : null}
         <Button 
           style={{marginTop: "auto", justifyContent: "center"}}
           onPress={() => navigation.navigate("HomeStack", {screen: "GameScreen", params: { numPlayers: gameData?.numPlayers }})}>
@@ -117,10 +127,10 @@ const styles = StyleSheet.create({
   },
   inputLabelStyles: {
     fontSize: 16,
-    paddingVertical: 10
+    paddingVertical: 10,
   }, 
   inputTextStyles: {
-    width: "100%",
+    width: "80%",
     backgroundColor: "#fff",
     borderRadius: 7,
     paddingVertical: 10, 

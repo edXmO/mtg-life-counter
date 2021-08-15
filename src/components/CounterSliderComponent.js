@@ -3,7 +3,6 @@ import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native"
 import Button from "../librarycomponents/Button"
 import Label from "../librarycomponents/Label"
 
-
 const ITEM_WIDTH = 45;
 
 const CounterSliderComponent = ({ activeCounter, editCounter, index, data }) => {
