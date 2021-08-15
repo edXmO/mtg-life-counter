@@ -1,6 +1,5 @@
 import React from "react"
 import { TouchableOpacity, StyleSheet } from "react-native"
-import Label from "../librarycomponents/Label";
 
 const Button = ({ children, onPress, theme, primary = true, style = {}, disabled = false }) => {	 
 

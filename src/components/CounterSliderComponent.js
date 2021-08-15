@@ -1,4 +1,3 @@
-import { Ionicons } from "@expo/vector-icons";
 import React, { useRef } from "react"
 import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native"
 import Button from "../librarycomponents/Button"
@@ -9,10 +8,6 @@ const ITEM_WIDTH = 45;
 
 const CounterSliderComponent = ({ activeCounter, editCounter, index, data }) => {
 
-  console.log(data);
-
-  // console.log("index", index, data.counters[activeCounter])
-
   const flatListRef = useRef(null);
 
   const scrollToIndex = (index) => {
@@ -21,7 +16,6 @@ const CounterSliderComponent = ({ activeCounter, editCounter, index, data }) => 
 
   const onItemSelect = ( itemIndex ) => {
     editCounter(index, activeCounter, itemIndex + 1);
-    // scrollToIndex(itemIndex);
   }
 
   const renderItem = ({item, itemIndex}) => {
@@ -52,7 +46,6 @@ const CounterSliderComponent = ({ activeCounter, editCounter, index, data }) => 
           style={{width: "10%", backgroundColor: "white"}}
           onPress={() => {
             editCounter(index, activeCounter, data.counters[activeCounter] - 1);
-            // scrollToIndex(data.counters[activeCounter] - 1);
             }}>
           <Label style={{ fontSize: 22, color: "black"}}>
             -
@@ -67,7 +60,6 @@ const CounterSliderComponent = ({ activeCounter, editCounter, index, data }) => 
             ref={flatListRef}
             horizontal
             bounces={false}
-            // onScrollToIndexFailed={({index, highestMeasuredFrameIndex, averageItemLength = ITEM_WIDTH}) => scrollToIndex(0)}
             showsHorizontalScrollIndicator={false}
             keyExtractor={({item, index}) => `${item?.value}-${Math.random()}`}
             data={Array.from(Array(20), (_, i) =>  { return {value: i + 1, index: i} })}
@@ -85,7 +77,6 @@ const CounterSliderComponent = ({ activeCounter, editCounter, index, data }) => 
           style={ { width: "10%", backgroundColor: "white" }}
           onPress={() => {
             editCounter(index, activeCounter, data.counters[activeCounter] + 1);
-            // scrollToIndex(data.counters[activeCounter]);
           }}>
           <Label style={{ fontSize: 22, color: "black"}}>+</Label>
         </Button>
@@ -98,7 +89,6 @@ export default CounterSliderComponent;
 const styles = StyleSheet.create({
   lifeCounterContainer: {
     flexDirection: "row",
-    // justifyContent: "space-evenly",
     alignItems: "center",
     width: "90%"
   },

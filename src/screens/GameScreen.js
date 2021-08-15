@@ -1,6 +1,5 @@
-import React from "react"
+import React, {useEffect, useState } from "react"
 import { View, Dimensions, StyleSheet } from "react-native";
-import { useEffect, useState } from "react/cjs/react.development";
 import Board from "../components/Board";
 
 const { height } = Dimensions.get("window");
@@ -47,11 +46,11 @@ const GameScreen = ({ route }) => {
     setGameBoards(newBoard);
   }
 
-  // useEffect(() => {
-  //   if(route?.params){
-  //     setNumPlayers(route?.params?.numPlayers)
-  //   }
-  // }, [route?.params])
+  useEffect(() => {
+    if(route?.params){
+      setNumPlayers(route?.params?.numPlayers)
+    }
+  }, [route?.params])
 
   return (
       <View style={{
